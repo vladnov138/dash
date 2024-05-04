@@ -141,10 +141,11 @@ def build_top_pop_hist(year_from=None, year_to=None):
 
     latest_data = filtered_data.sort_values("year", ascending=False).drop_duplicates("country")
     top = latest_data.sort_values("pop", ascending=False)[:15][::-1]
-    return px.bar(top, x="pop", y="country", title="Топ 15 стран по популяции", hover_data=["year"])
+    return px.bar(top, x="pop", y="country", hover_data=["year"])
 
 
 hist = html.Div([
+    html.H1(children='Топ 15 по популяции', style={'textAlign': 'center'}),
     dcc.Graph(id='hist', figure=build_top_pop_hist(), style=style_dashboard, responsive=True)
 ], id='hist_chart')
 
@@ -167,10 +168,11 @@ def build_pie_fig(year_from=None, year_to=None):
 
     latest_data = filtered_data.sort_values("year", ascending=False).drop_duplicates("country")
 
-    return px.pie(latest_data, values="pop", names="continent", title="Население континентов", hole=.3)
+    return px.pie(latest_data, values="pop", names="continent", hole=.3)
 
 
 pie_chart = html.Div([
+    html.H1(children="Население континентов", style={'textAlign': 'center'}),
     dcc.Graph(id='pie', figure=build_pie_fig(), style=style_dashboard, responsive=True)
 ], style=style_dashboard, id="pie_chart")
 
